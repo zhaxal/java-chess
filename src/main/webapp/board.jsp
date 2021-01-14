@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dairalaev
-  Date: 14.01.2021
-  Time: 18:21
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -48,15 +42,12 @@
         //---------------------------------------------------------------------------------------------------------------------------
         var turn        = "White"  ;
         var squareClass = "light"  ;
-
         //---------------------------------------------------------------------------------------------------------------------------
         function toggleTurn        ()  { if ( turn        == "White" ) { turn        = "Black" ; } else { turn        = "White" ; } }
         function toggleSquareClass ()  { if ( squareClass == "light" ) { squareClass = "dark"  ; } else { squareClass = "light" ; } }
-
         function getNextCharacter     ( character )  { return String.fromCodePoint( character.codePointAt(0) + 1 ) ; }
         function getPreviousCharacter ( character )  { return String.fromCodePoint( character.codePointAt(0) - 1 ) ; }
         //---------------------------------------------------------------------------------------------------------------------------
-
     </script>
 
 </head>
@@ -78,12 +69,10 @@
     </tr>
 
     <script>
-
         for (var row = 1;row <= 8;row++) //loop which goes from very first row of board to the last not including rows with letters
         {
             document.write("<tr>"); //starting row tag
             letterlabel = "A"; //this variable is responsible to be set for "A" value as every row our inner loop will go from "A" to "H"
-
             for (var column = 1;column <= 10;column++) //inner loop for going through all columns in a row
             {
                 if (column == 1 || column == 10) //checking if it is column for displaying number label of a row
@@ -105,15 +94,11 @@
                     letterlabel = getNextCharacter(letterlabel); //replacing current letter label for the next one in alphabet
                 }
             }
-
             numberlabel=getPreviousCharacter(numberlabel); //replacing current digit label for the next one
             document.write("</tr>"); //closing row tag
             toggleSquareClass(); //changing style (background) of cell for the next one, so board will get needed pattern
-
         }
-
         //code for setting other figures using IDs we just set up
-
         document.getElementById("A1").innerHTML = "♖";
         document.getElementById("B1").innerHTML = "♘";
         document.getElementById("C1").innerHTML = "♗";
@@ -122,7 +107,6 @@
         document.getElementById("F1").innerHTML = "♗";
         document.getElementById("G1").innerHTML = "♘";
         document.getElementById("H1").innerHTML = "♖";
-
         document.getElementById("A8").innerHTML = "♜";
         document.getElementById("B8").innerHTML = "♞";
         document.getElementById("C8").innerHTML = "♝";
@@ -131,7 +115,6 @@
         document.getElementById("F8").innerHTML = "♝";
         document.getElementById("G8").innerHTML = "♞";
         document.getElementById("H8").innerHTML = "♜";
-
     </script>
 
     <tr>
