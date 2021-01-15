@@ -8,7 +8,7 @@
         var selected = null;
         var posInitial = null;
         var posFinal = null;
-        var websocket = new WebSocket("ws://localhost:8080/chess_war/gameroom");
+        var websocket = new WebSocket("ws://localhost:8080/chess_war_exploded/gameroom");
 /*
         websocket.onmessage = function processMessage (message){
             var jsonData = JSON.parse(message.data);
@@ -91,7 +91,7 @@
         var numberlabel='8'; //variable for indicating digit index of board cell
         var letterlabel = "A"; //variable for indicating digit index of board cell
         //---------------------------------------------------------------------------------------------------------------------------
-        var turn        = "White"  ;
+        var turn        = "<%=request.getParameter("optradio")%>"  ;
         var squareClass = "light"  ;
         //---------------------------------------------------------------------------------------------------------------------------
         function toggleTurn        ()  { if ( turn        == "White" ) { turn        = "Black" ; } else { turn        = "White" ; } }
@@ -143,6 +143,7 @@
 
 </head>
 <body>
+<h1>Welcome, <%=request.getParameter("username")%>!</h1>
 
 <br>
 <table>
