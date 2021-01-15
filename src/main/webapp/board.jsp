@@ -3,11 +3,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
     <script>
         var selected = null;
         var posInitial = null;
         var posFinal = null;
+        var websocket = new WebSocket("ws://localhost:8080/chess_war/gameroom");
+
+        websocket.onmessage = function processMessage (message){
+            var jsonData = JSON.parse(message.data);
+            if(jsonData.message != null) messagesTextArea.value += jsonData.message + "\n";
+        }
+
+        function sendMessage(){
+            websocket.send(messageText.value);
+            messageText.value = "";
+        }
 
         $(document).ready(function(){
             $("button").click(function(){
@@ -18,18 +29,15 @@
             });
         });
 
-
-    </script>
-    <script>
-            $(document).ready(function(){
-                $("td").click(function(){
-                    if (posInitial !== $(this).attr("id").substr(2)){
+        $(document).ready(function(){
+            $("td").click(function(){
+                if (posInitial !== $(this).attr("id").substr(2)){
                     posFinal = $(this).attr("id").substr(2);
                     document.getElementById(posFinal).innerHTML = selected;
                     document.getElementById(posInitial).innerHTML = "";
-                    }
-                });
+                }
             });
+        });
 
     </script>
     <title>Chess</title>
@@ -202,7 +210,8 @@
     </tr>
 </table>
 
-
+<textarea id = "messagesTextArea" readonly = "readonly" rows="10" cols="45"></textarea><br/>
+<input type= "text" id="messageText" size="50"/><input type="button" value="Send" onclick="sendMessage()"/>
 
 </body>
 </html>
