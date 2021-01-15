@@ -23,7 +23,7 @@
         websocket.onmessage = function processMove(message){
             var jsonData = JSON.parse(message.data)
             if(jsonData.message != null){
-                var posI = jsonData.message.substr(1,3);
+                var posI = jsonData.message.substr(1,2);
                 var posF = jsonData.message.substr(3);
                 var piece = jsonData.message.substr(0,1);
                 console.log(posI);
