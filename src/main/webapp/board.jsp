@@ -9,7 +9,7 @@
         var posInitial = null;
         var posFinal = null;
         var websocket = new WebSocket("ws://localhost:8080/chess_war/gameroom");
-
+/*
         websocket.onmessage = function processMessage (message){
             var jsonData = JSON.parse(message.data);
             if(jsonData.message != null) messagesTextArea.value += jsonData.message + "\n";
@@ -18,6 +18,18 @@
         function sendMessage(){
             websocket.send(messageText.value);
             messageText.value = "";
+        }
+*/
+        websocket.onmessage = function processMove(message){
+            var jsonData = JSON.parse(message.data)
+            if(jsonData.message != null){
+                var posI = jsonData.message.substr(1,3);
+                var posF = jsonData.message.substr(3);
+                var piece = jsonData.message.substr(0,1);
+                console.log(posI);
+                document.getElementById(posF).innerHTML = piece;
+                document.getElementById(posI).innerHTML = "";
+            }
         }
 
         $(document).ready(function(){
@@ -31,10 +43,13 @@
 
         $(document).ready(function(){
             $("td").click(function(){
-                if (posInitial !== $(this).attr("id").substr(2)){
+                if ((posInitial !== $(this).attr("id").substr(2)) && selected !== ""){
                     posFinal = $(this).attr("id").substr(2);
                     document.getElementById(posFinal).innerHTML = selected;
                     document.getElementById(posInitial).innerHTML = "";
+                    websocket.send(selected+posInitial+posFinal);
+                    console.log(selected+posInitial+posFinal);
+                    selected = "";
                 }
             });
         });

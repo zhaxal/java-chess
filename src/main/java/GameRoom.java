@@ -21,7 +21,7 @@ public class GameRoom {
         players.add(userSession);
     }
 
-
+/*
     @OnMessage
     public void handleMessage(String message, Session userSession) throws IOException {
         String username = (String) userSession.getUserProperties().get("username");
@@ -33,7 +33,19 @@ public class GameRoom {
             while(iterator.hasNext()) iterator.next().getBasicRemote().sendText(buildJsonData(username,message));
         }
     }
+*/
+    @OnMessage
+    public void handleMove(String move) throws IOException {
+        Iterator<Session> iterator = players.iterator();
+        while(iterator.hasNext()) iterator.next().getBasicRemote().sendText(moveJson(move));
+    }
 
+    private String moveJson(String move){
+        JsonObject jsonObject = Json.createObjectBuilder().add("message", move).build();
+        StringWriter stringWriter = new StringWriter();
+        try(JsonWriter jsonWriter = Json.createWriter(stringWriter)){jsonWriter.writeObject(jsonObject);}
+        return stringWriter.toString();
+    }
     private String buildJsonData(String username, String message) {
         JsonObject jsonObject = Json.createObjectBuilder().add("message", username+": "+message).build();
         StringWriter stringWriter = new StringWriter();
