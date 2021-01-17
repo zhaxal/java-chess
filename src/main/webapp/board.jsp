@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
     <script>
         var selected = null;
@@ -183,11 +184,12 @@
         <td> </td>
     </tr>
 </table>
-
+<br>
+<br>
 <textarea id = "messagesTextArea" readonly = "readonly" rows="10" cols="45"></textarea><br/>
 <form method="post" name="myform">
-    <input id="messageText" type= "text" name="message" size="50"/><input id="somebutton" type="button" value="Send" onclick="sendMessage()"/>
-    <input type="button" value="Connect" onclick="setUsername()"/>
+    <input id="messageText" type= "text" name="message" size="50"/><input id="somebutton"  class="btn btn-primarya" type="button" value="Send" onclick="sendMessage()"/>
+    <input type="button" value="Connect" onclick="setUsername()" class="btn btn-success"/>
 </form>
 
 <script>
