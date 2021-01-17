@@ -17,18 +17,23 @@
 <div class="container">
     <h2>Hello, grandmaster! Welcome to the chess game!</h2>
     <p>Type your name, preferable side and start playing!</p>
+    <p style="color: red"><%=session.getAttribute("alert")%></p>
     <form method="post" action="GameServlet">
         <div class="form-group">
             <label for="username">Name:</label>
             <input type="text" class="form-control" name="username" id="username">
+            <br><br>
+            <label for="options">Color:</label>
+            <div id="options">
+                <label class="radio-inline">
+                    <input type="radio" name="optradio" value="Black">Black
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="optradio" value="White">White
+                </label>
+            </div>
 
-            <label class="radio-inline">
-                <input type="radio" name="optradio" value="Black">Black
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="optradio" value="White">White
-            </label>
-
+            <br>
             <input type="submit" class="btn btn-success" value="Play">
         </div>
     </form>

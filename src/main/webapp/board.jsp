@@ -59,7 +59,7 @@
     <title>Chess</title>
 
     <style>
-        body  { text-align       : center          ; }
+        body  { text-align       : center          ;}
         table { margin-left      : auto            ;
             margin-right     : auto            ;
             border           : 2px solid Black ;

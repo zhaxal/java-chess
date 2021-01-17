@@ -33,4 +33,13 @@
         <filter-name>StartFilter</filter-name>
         <url-pattern>/GameServlet</url-pattern>
     </filter-mapping>
+
+    <filter>
+        <filter-name>ColorFilter</filter-name>
+        <filter-class>ColorFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ColorFilter</filter-name>
+        <url-pattern>/welcome_page.jsp</url-pattern>
+    </filter-mapping>
 </web-app>
