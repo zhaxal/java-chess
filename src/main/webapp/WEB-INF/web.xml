@@ -6,4 +6,31 @@
     <welcome-file-list>
         <welcome-file>welcome_page.jsp</welcome-file>
     </welcome-file-list>
+
+<!--    <servlet>-->
+<!--        <servlet-name>ServerServlet</servlet-name>-->
+<!--        <servlet-class>ServerServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>ServerServlet</servlet-name>-->
+<!--        <url-pattern>/serverServlet</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    <servlet>-->
+<!--        <servlet-name>ClientServlet</servlet-name>-->
+<!--        <servlet-class>ClientServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>ClientServlet</servlet-name>-->
+<!--        <url-pattern>/clientServlet</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+    <filter>
+        <filter-name>StartFilter</filter-name>
+        <filter-class>StartFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>StartFilter</filter-name>
+        <url-pattern>/board.jsp</url-pattern>
+    </filter-mapping>
 </web-app>
