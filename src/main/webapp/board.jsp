@@ -1,32 +1,46 @@
-<%@ page import="game.*" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
     <script>
         var selected = null;
         var posInitial = null;
+        var turn = "White";
         var posFinal = null;
-        var websocket = new WebSocket("ws://localhost:8080/chess_war_exploded/gameroom");
-/*
-        websocket.onmessage = function processMessage (message){
+        var websocket = new WebSocket("ws://localhost:8080/chess_war/gameroom");
+        var webchat = new WebSocket("ws://localhost:8080/chess_war/gamechat");
+        var username = "<%=session.getAttribute("username")%>";
+
+
+
+
+
+        webchat.onmessage = function processMessage (message){
             var jsonData = JSON.parse(message.data);
             if(jsonData.message != null) messagesTextArea.value += jsonData.message + "\n";
         }
-
         function sendMessage(){
-            websocket.send(messageText.value);
+            webchat.send(messageText.value);
             messageText.value = "";
         }
-*/
+        function setUsername(){
+            webchat.send(username);
+        }
+
         websocket.onmessage = function processMove(message){
             var jsonData = JSON.parse(message.data)
             if(jsonData.message != null){
+                if(turn === "Black"){
+                    turn = "White";
+                }else {
+                    turn = "Black";
+                }
                 var posI = jsonData.message.substr(1,2);
                 var posF = jsonData.message.substr(3);
                 var piece = jsonData.message.substr(0,1);
-                console.log(posI);
                 document.getElementById(posF).innerHTML = piece;
                 document.getElementById(posI).innerHTML = "";
             }
@@ -35,9 +49,7 @@
         $(document).ready(function(){
             $("button").click(function(){
                 posInitial = $(this).attr("id");
-                console.log(posInitial);
                 selected = document.getElementById(posInitial).innerHTML;
-                console.log(selected);
             });
         });
 
@@ -45,20 +57,24 @@
             $("td").click(function(){
                 if ((posInitial !== $(this).attr("id").substr(2)) && selected !== ""){
                     posFinal = $(this).attr("id").substr(2);
-                    document.getElementById(posFinal).innerHTML = selected;
-                    document.getElementById(posInitial).innerHTML = "";
-                    websocket.send(selected+posInitial+posFinal);
-                    console.log(selected+posInitial+posFinal);
+                    websocket.send(selected+posInitial+posFinal+turn);
+
                     selected = "";
                 }
             });
         });
+
+
+
+
 
     </script>
     <title>Chess</title>
 
     <style>
         body  { text-align       : center          ; }
+
+
         table { margin-left      : auto            ;
             margin-right     : auto            ;
             border           : 2px solid Black ;
@@ -67,7 +83,11 @@
             background-color : Sienna          ;
             text-align       : center          ;
             font-family      : Tahoma          ;
-            font-weight      : bold            ; }
+            font-weight      : bold            ;
+
+        }
+
+
         td    { width            : 50px            ;
             height           : 50px            ; }
         input { text-align       : center          ; }
@@ -91,59 +111,18 @@
         var numberlabel='8'; //variable for indicating digit index of board cell
         var letterlabel = "A"; //variable for indicating digit index of board cell
         //---------------------------------------------------------------------------------------------------------------------------
-        var turn        = "<%=request.getParameter("optradio")%>"  ;
+
         var squareClass = "light"  ;
         //---------------------------------------------------------------------------------------------------------------------------
-        function toggleTurn        ()  { if ( turn        == "White" ) { turn        = "Black" ; } else { turn        = "White" ; } }
         function toggleSquareClass ()  { if ( squareClass == "light" ) { squareClass = "dark"  ; } else { squareClass = "light" ; } }
         function getNextCharacter     ( character )  { return String.fromCodePoint( character.codePointAt(0) + 1 ) ; }
         function getPreviousCharacter ( character )  { return String.fromCodePoint( character.codePointAt(0) - 1 ) ; }
         //---------------------------------------------------------------------------------------------------------------------------
     </script>
 
-    <%
-        Piece pawnB1 = new Pawn(1,"A7");
-        Piece pawnB2 = new Pawn(1,"B7");
-        Piece pawnB3 = new Pawn(1,"C7");
-        Piece pawnB4 = new Pawn(1,"D7");
-        Piece pawnB5 = new Pawn(1,"E7");
-        Piece pawnB6 = new Pawn(1,"F7");
-        Piece pawnB7 = new Pawn(1,"G7");
-        Piece pawnB8 = new Pawn(1,"H7");
-
-        Piece rookB1 = new Rook(1,"A8");
-        Piece rookB2 = new Rook(1,"H8");
-        Piece knightB1 = new Knight(1,"B8");
-        Piece knightB2 = new Knight(1,"G8");
-        Piece bishopB1 = new Bishop(1,"C8");
-        Piece bishopB2 = new Bishop(1,"F8");
-        Piece queenB = new Queen(1,"D8");
-        Piece kingB = new King(1,"E8");
-
-        Piece rookW1 = new Rook(0,"A1");
-        Piece rookW2 = new Rook(0,"H1");
-        Piece knightW1 = new Knight(0,"B1");
-        Piece knightW2 = new Knight(0,"G1");
-        Piece bishopW1 = new Bishop(0,"C1");
-        Piece bishopW2 = new Bishop(0,"F1");
-        Piece queenW = new Queen(0,"D1");
-        Piece kingW = new King(0,"E1");
-
-        Piece pawnW1 = new Pawn(0,"A2");
-        Piece pawnW2 = new Pawn(0,"B2");
-        Piece pawnW3 = new Pawn(0,"C2");
-        Piece pawnW4 = new Pawn(0,"D2");
-        Piece pawnW5 = new Pawn(0,"E2");
-        Piece pawnW6 = new Pawn(0,"F2");
-        Piece pawnW7 = new Pawn(0,"G2");
-        Piece pawnW8 = new Pawn(0,"H2");
-
-
-    %>
-
 </head>
 <body>
-<h1>Welcome, <%=request.getParameter("username")%>!</h1>
+<h1 >Welcome, <%=session.getAttribute("username")%>!</h1>
 
 <br>
 <table>
@@ -227,7 +206,11 @@
 </table>
 
 <textarea id = "messagesTextArea" readonly = "readonly" rows="10" cols="45"></textarea><br/>
-<input type= "text" id="messageText" size="50"/><input type="button" value="Send" onclick="sendMessage()"/>
+<form method="post" name="myform">
+    <input id="messageText" type= "text" name="message" size="50"/><input id="somebutton" type="button" value="Send" onclick="sendMessage()"/>
+    <input type="button" value="Connect" onclick="setUsername()"/>
+</form>
+
 
 </body>
 </html>

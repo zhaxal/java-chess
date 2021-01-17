@@ -17,7 +17,7 @@
 <div class="container">
     <h2>Hello, grandmaster! Welcome to the chess game!</h2>
     <p>Type your name, preferable side and start playing!</p>
-    <form method="post" action="board.jsp">
+    <form method="post" action="GameServlet">
         <div class="form-group">
             <label for="username">Name:</label>
             <input type="text" class="form-control" name="username" id="username">

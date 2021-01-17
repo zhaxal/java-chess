@@ -14,6 +14,7 @@
           <element id="module-output" name="chess" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: javax.websocket:javax.websocket-api:1.1" />
           <element id="library" level="project" name="Maven: javax.json:javax.json-api:1.0" />
           <element id="library" level="project" name="Maven: org.glassfish:javax.json:1.0.4" />
         </element>

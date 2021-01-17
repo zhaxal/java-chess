@@ -1,7 +1,7 @@
 package game;
 
 public abstract class Piece {
-    private int color;
+    public int color;
     private String pos; //position with letters "A1"
 
     public int x;
