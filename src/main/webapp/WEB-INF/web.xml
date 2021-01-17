@@ -31,6 +31,6 @@
     </filter>
     <filter-mapping>
         <filter-name>StartFilter</filter-name>
-        <url-pattern>/board.jsp</url-pattern>
+        <url-pattern>/GameServlet</url-pattern>
     </filter-mapping>
 </web-app>
