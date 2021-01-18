@@ -6,11 +6,11 @@ Simple multiplayer chess game with chat, made in Java.
 
 
 
-It's university assignment, the object was to use socket-programming, filters and threads. The web application includes welcome page where you input your name and pick your color.
+It's university assignment, the object was to use socket-programming, filters and threads. The web application includes welcome page, where you input your name and pick your color.
 
 ![alt text](https://s3.amazonaws.com/awesomescreenshot/image/1606472/5935783-83721a22d0dc4be420898262bdf8976d.png?AWSAccessKeyId=AKIAJSCJQ2NM3XLFPVKA&Expires=1610995677&Signature=VMpHzCzkN6%2FRf1dcLfy0w9TDOhw%3D)
 
-So we have a gaming board and chat.
+So we have a gaming board and chat. The gaming logic is done(moves, order and etc).
 
 ![alt text](https://i.imgur.com/wuASZ3g.png)
 
